@@ -1,5 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ModeToggle } from './mode-toggle';
 
 type HeaderProps = {
   cartItemsCount: number;
@@ -34,7 +35,7 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
             variant="link"
             size="icon"
             onClick={onCartClick}
-            className="relative hover:bg-[#009EBA]"
+            className="relative hover:bg-[#ff8000]"
           >
             <ShoppingCart className="h-5 w-5 text-white" />
             {cartItemsCount > 0 && (
@@ -43,6 +44,7 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
               </span>
             )}
           </Button>
+          <ModeToggle />
         </div>
       </div>
     </header>

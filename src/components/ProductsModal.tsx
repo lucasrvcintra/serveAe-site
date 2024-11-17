@@ -68,7 +68,7 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="bg-[#FF9000] hover:bg-green-600 font-bold">
           <Plus className="h-4 w-4 mx-2" />
           Adicionar Produto
         </Button>
@@ -144,12 +144,20 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
               }
             />
           </div>
-          <Button onClick={handleSubmit} className="w-full">
+          <Button
+            onClick={handleSubmit}
+            className="w-full bg-green-500 hover:bg-green-600 font-bold"
+          >
             {editingProduct ? 'Salvar Alterações' : 'Adicionar Produto'}
           </Button>
         </div>
         <DialogFooter>
-          <Button onClick={() => setIsOpen(false)}>Fechar</Button>
+          <Button
+            onClick={() => setIsOpen(false)}
+            className="bg-red-500 hover:bg-red-700 font-bold"
+          >
+            Fechar
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

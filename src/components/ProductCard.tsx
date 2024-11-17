@@ -41,7 +41,7 @@ export default function ProductCard({
             onClick={() => onEditProduct(product)}
             variant="ghost"
             size="icon"
-            className="text-blue-500 hover:text-blue-600"
+            className="text-[#0088A1] hover:text-[#009EBA]"
           >
             <Edit className="h-4 w-4" />
           </Button>
@@ -57,7 +57,7 @@ export default function ProductCard({
         <div className="flex flex-1 md:flex-grow-0 items-center">
           <Button
             onClick={() => onAddToCart(product)}
-            className="mx-1 my-1 flex-1"
+            className="mx-1 my-1 flex-1 bg-[#FF9000] hover:bg-green-600 font-bold"
           >
             <Plus className="mr-2 h-4 w-4" /> Adicionar
           </Button>

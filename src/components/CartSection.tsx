@@ -46,7 +46,7 @@ export function CartSection({
                   variant="outline"
                   size="icon"
                   onClick={onClearCart}
-                  className="h-8 w-8"
+                  className="h-8 w-8 hover:bg-red-400"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -81,7 +81,9 @@ export function CartSection({
               <span className="font-semibold">Total</span>
               <span className="font-semibold">R$ {totalPrice.toFixed(2)}</span>
             </div>
-            <Button className="w-full">Finalizar Pedido</Button>
+            <Button className="w-full bg-[#0088A1] hover:bg-[#009EBA] font-bold">
+              Finalizar Pedido
+            </Button>
           </div>
         )}
       </CardContent>

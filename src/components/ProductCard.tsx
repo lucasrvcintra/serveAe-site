@@ -31,7 +31,7 @@ export default function ProductCard({
             className="w-16 h-16 rounded-md"
           />
         </div>
-        <div className="flex-1 mx-4">
+        <div className="flex-1 mx-2 min-w-[90px]">
           <p className="font-bold">{product.name}</p>
           <p>{product.category}</p>
           <p className="font-bold">R$ {product.price.toFixed(2)}</p>

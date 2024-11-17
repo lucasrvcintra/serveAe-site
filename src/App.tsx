@@ -5,7 +5,7 @@ import { CartSection } from './components/CartSection';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useProducts } from './hooks/useProducts';
 import { useCart } from './hooks/useCart';
-import type { Product } from './types';
+import { Product } from './types';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('menu');

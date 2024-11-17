@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { categories, Product } from '../types';
+import { useEffect } from 'react';
 
 type ProductsDialogProps = {
   onAddProduct: (product: Partial<Product>) => void;
@@ -41,12 +42,20 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
   editingProduct,
   setEditingProduct,
 }) => {
+  useEffect(() => {
+    if (isOpen && editingProduct) {
+      setNewProduct(editingProduct);
+    } else if (!isOpen) {
+      setNewProduct({});
+      setEditingProduct(null);
+    }
+  }, [isOpen, editingProduct, setNewProduct, setEditingProduct]);
+
   const handleSubmit = () => {
     if (editingProduct) {
       onEditProduct({
         ...editingProduct,
         ...newProduct,
-        id: editingProduct.id,
       });
     } else {
       onAddProduct(newProduct);
@@ -56,16 +65,8 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
     setIsOpen(false);
   };
 
-  const handleOpenChange = (open: boolean) => {
-    setIsOpen(open);
-    if (!open) {
-      setNewProduct({});
-      setEditingProduct(null);
-    }
-  };
-
   return (
-    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="h-4 w-4 mx-2" />
@@ -79,33 +80,30 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="name">Nome do Produto</Label>
-              <Input
-                id="name"
-                value={newProduct.name || ''}
-                onChange={(e) =>
-                  setNewProduct({ ...newProduct, name: e.target.value })
-                }
-              />
-            </div>
-            <div>
-              <Label htmlFor="price">Preço (R$)</Label>
-              <Input
-                id="price"
-                type="number"
-                value={newProduct.price || ''}
-                onChange={(e) =>
-                  setNewProduct({
-                    ...newProduct,
-                    price: parseFloat(e.target.value),
-                  })
-                }
-              />
-            </div>
+          <div>
+            <Label htmlFor="name">Nome do Produto</Label>
+            <Input
+              id="name"
+              value={newProduct.name || ''}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, name: e.target.value })
+              }
+            />
           </div>
-
+          <div>
+            <Label htmlFor="price">Preço (R$)</Label>
+            <Input
+              id="price"
+              type="number"
+              value={newProduct.price || ''}
+              onChange={(e) =>
+                setNewProduct({
+                  ...newProduct,
+                  price: parseFloat(e.target.value),
+                })
+              }
+            />
+          </div>
           <div>
             <Label htmlFor="category">Categoria</Label>
             <Select
@@ -126,7 +124,6 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
               </SelectContent>
             </Select>
           </div>
-
           <div>
             <Label htmlFor="description">Descrição</Label>
             <Textarea
@@ -137,7 +134,6 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
               }
             />
           </div>
-
           <div>
             <Label htmlFor="imageUrl">URL da Imagem</Label>
             <Input
@@ -148,14 +144,12 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
               }
             />
           </div>
-
           <Button onClick={handleSubmit} className="w-full">
             {editingProduct ? 'Salvar Alterações' : 'Adicionar Produto'}
           </Button>
         </div>
-
         <DialogFooter>
-          <Button onClick={() => handleOpenChange(false)}>Fechar</Button>
+          <Button onClick={() => setIsOpen(false)}>Fechar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

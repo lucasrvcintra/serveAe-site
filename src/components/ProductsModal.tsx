@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { categories, type Product } from '../App';
+import { categories, Product } from '../types';
 
 type ProductsDialogProps = {
   onAddProduct: (product: Partial<Product>) => void;
@@ -43,41 +43,33 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
 }) => {
   const handleSubmit = () => {
     if (editingProduct) {
-      onEditProduct({ ...editingProduct, ...newProduct } as Product);
-      setEditingProduct(null);
+      onEditProduct({
+        ...editingProduct,
+        ...newProduct,
+        id: editingProduct.id,
+      });
     } else {
       onAddProduct(newProduct);
     }
     setNewProduct({});
+    setEditingProduct(null);
     setIsOpen(false);
   };
 
-  const handleOpen = (product?: Product) => {
-    if (product) {
-      setEditingProduct(product);
-      setNewProduct({
-        name: product.name,
-        price: product.price,
-        category: product.category,
-        description: product.description,
-        imageUrl: product.imageUrl,
-      });
-    } else {
-      setEditingProduct(null);
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
       setNewProduct({});
+      setEditingProduct(null);
     }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button
-          onClick={() =>
-            handleOpen(editingProduct ? editingProduct : undefined)
-          }
-        >
-          <Plus className="h-4 w-4 mr-2" />
-          {editingProduct ? 'Editar Produto' : 'Adicionar Produto'}
+        <Button>
+          <Plus className="h-4 w-4 mx-2" />
+          Adicionar Produto
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl">
@@ -163,15 +155,7 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
         </div>
 
         <DialogFooter>
-          <Button
-            onClick={() => {
-              setNewProduct({});
-              setEditingProduct(null);
-              setIsOpen(false);
-            }}
-          >
-            Fechar
-          </Button>
+          <Button onClick={() => handleOpenChange(false)}>Fechar</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

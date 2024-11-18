@@ -14,7 +14,7 @@ export function CartItemComponent({
   onIncrease,
 }: CartItemProps) {
   return (
-    <div className="mb-4 border rounded-lg border-gray-300 p-4">
+    <div className="mb-4 border rounded-lg border-gray-500 p-4">
       <div className="flex md:items-center justify-between gap-1 flex-wrap">
         <div className="flex flex-1 items-center space-x-4 min-w-[220px]">
           <img

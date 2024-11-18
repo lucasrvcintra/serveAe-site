@@ -22,7 +22,7 @@ export default function ProductCard({
   onDeleteProduct,
 }: ProductCardProps) {
   return (
-    <div className="mb-4 border rounded-lg border-gray-300 p-4">
+    <div className="mb-4 border rounded-lg border-gray-500 p-4">
       <div className="flex md:items-center justify-between gap-1 flex-wrap">
         <div className="flex-shrink-0 mr-2">
           <img

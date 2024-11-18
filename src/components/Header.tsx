@@ -10,7 +10,7 @@ type HeaderProps = {
 const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-[#FF9000]">
-      <div className="flex h-16 items-center justify-around md:justify-betweenpx-4">
+      <div className="flex h-16 items-center justify-between md:justify-between px-4">
         <div className="flex items-center space-x-2 ">
           <div className="flex items-center space-x-2">
             <span className="text-2xl font-bold text-primary">🍽️</span>

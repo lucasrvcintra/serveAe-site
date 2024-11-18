@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# Desafio Técnico - Falaê
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o repositório do **Desafio Técnico** para o processo seletivo de estágio na **Falaê**. A aplicação foi desenvolvida para **gestão de pedidos de um restaurante**. Ela permite cadastrar clientes, produtos, criar pedidos, visualizar e atualizar informações, e calcular o total de cada pedido, tudo utilizando **React**, **Vite**, **TailwindCSS** e **Shadcn**.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **Frontend**:
+- **React com TypeScript**: Biblioteca para construção da interface do usuário.
+- **Vite**: Build tool que acelera o desenvolvimento com uma experiência de recarga mais rápida.
+- **TailwindCSS**: Framework de CSS para estilização rápida e responsiva.
+- **Shadcn**: Biblioteca de componentes UI, usada para estilizar componentes de forma elegante e funcional.
 
-## Expanding the ESLint configuration
+### **Comunicação com API**:
+- **Axios**: Para fazer chamadas HTTP para o backend.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Ferramentas de Desenvolvimento**:
+- **VSCode**: Editor de código.
+- **Git**: Controle de versão.
 
-- Configure the top-level `parserOptions` property like this:
+## 💻 Como Rodar o Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. **Clonar o Repositório**
+   ```bash
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   cd nome-do-repositorio
+2. **Instalar dependências
+   ```bash
+   npm install
+3. **Rodar o projeto
+   ```bash
+   npm run dev
+3. **Abrir no navegador
+   ```bash
+    ➜  Local:   http://localhost:5173/
+## 📝 Funcionalidades Implementadas
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 1. Cadastro de Clientes
+- **Objetivo**: Permite registrar um novo cliente no sistema com informações como nome, email, endereço e telefone.
+- **Funcionalidade**: Ao preencher o formulário e enviar, os dados são validados e armazenados no banco de dados.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 2. Cadastro de Produtos
+- **Objetivo**: Permite cadastrar novos produtos no sistema, com dados como nome, preço, categoria, descrição e imagem.
+- **Funcionalidade**: Produtos podem ser criados e visualizados diretamente pela interface.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### 3. Visualização de Produtos
+- **Objetivo**: Exibe uma lista de produtos cadastrados, permitindo ao usuário visualizar informações detalhadas como nome, categoria, preço e descrição.
+
+### 4. Criação de Pedidos
+- **Objetivo**: Permite que o cliente crie um pedido, selecionando produtos e suas respectivas quantidades.
+- **Funcionalidade**: O pedido é processado e o total é calculado automaticamente.
+
+### 5. Visualização e Detalhamento de Pedidos
+- **Objetivo**: Permite visualizar detalhes de um pedido específico, incluindo os produtos comprados, quantidades e valor total.
+- **Funcionalidade**: O pedido é exibido com todos os itens, permitindo uma rápida visualização.
+
+### 6. Edição e Exclusão de Produtos
+- **Objetivo**: Permite atualizar ou excluir produtos do banco de dados.
+- **Funcionalidade**: Produtos podem ser editados ou removidos pela interface administrativa.
+
+### 7. Cálculo de Total do Pedido
+- **Objetivo**: Calcular automaticamente o valor total de cada pedido com base nos preços e nas quantidades dos produtos.
+- **Funcionalidade**: Ao criar ou editar um pedido, o total é recalculado automaticamente.
+
+## 💡 Possíveis Melhorias Futuras
+- **Notificações**: Implementação de notificações para os clientes quando o pedido mudar de status.
+- **Controle de Estoque**: Adicionar funcionalidades de controle de estoque de produtos.
+- **Filtro Avançado de Produtos**: Implementar filtros para facilitar a busca de produtos (por preço, categoria, etc).

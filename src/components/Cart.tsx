@@ -81,25 +81,27 @@ const Cart = ({ cart, setCart }: CartProps) => {
               <span className="font-semibold">R$ {total.toFixed(2)}</span>
             </div>
             <div className="flex justify-between items-center">
-              {cart.length > 0 && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={onClearCart}
-                        className="h-8 w-8 hover:bg-red-400"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div>Limpar Carrinho</div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={onClearCart}
+                      className="h-8 w-8 hover:bg-red-400"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div>Limpar Carrinho</div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <Button className="w-fit bg-[#0088A1] hover:bg-[#009EBA] font-bold">
+                Finalizar Pedido
+              </Button>
             </div>
           </div>
         )}

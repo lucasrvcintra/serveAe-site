@@ -25,6 +25,7 @@ interface CartProps {
 
 const Cart = ({ cart, setCart }: CartProps) => {
   const [total, setTotal] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     const totalPrice = cart.reduce((acc, item) => {
@@ -32,6 +33,13 @@ const Cart = ({ cart, setCart }: CartProps) => {
     }, 0);
     setTotal(totalPrice);
   }, [cart, setCart]);
+
+  useEffect(() => {
+    const totalItems = cart.reduce((acc, item) => {
+      return item.quantity + acc;
+    }, 0);
+    setTotalItems(totalItems);
+  }, [cart]);
 
   const onClearCart = () => {
     setCart([]);
@@ -46,9 +54,9 @@ const Cart = ({ cart, setCart }: CartProps) => {
           className="relative hover:bg-[#ff8000]"
         >
           <ShoppingCart className="h-5 w-5 text-white" />
-          {cart.length > 0 && (
-            <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-primary text-[#0088A1] font-bold text-xs flex items-center justify-center bg-white">
-              {cart.length}
+          {totalItems > 0 && (
+            <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-primary text-[#008ba3] font-bold text-xs flex items-center justify-center bg-white">
+              {totalItems}
             </span>
           )}
         </Button>

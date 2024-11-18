@@ -1,6 +1,6 @@
 import { OrderItem } from '../types';
 import { Button } from '@/components/ui/button';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 type CartItemProps = {
@@ -27,10 +27,21 @@ export function CartItem({ item, cart, setCart }: CartItemProps) {
     }
   };
 
+  const handleRemoveFromCart = () => {
+    const existingItem = cart.find(
+      (orderItem) => orderItem.product.id === item.product.id
+    );
+    if (existingItem) {
+      setCart(
+        cart.filter((orderItem) => orderItem.product.id !== item.product.id)
+      );
+    }
+  };
+
   return (
     <div className="mb-4 border rounded-lg border-gray-500 p-4">
       <div className="flex md:items-center justify-between gap-1 flex-wrap">
-        <div className="flex flex-1 items-center space-x-4 min-w-[220px]">
+        <div className="flex flex-1 items-center space-x-4 min-w-[220px] relative">
           <img
             src={item.product.imageUrl}
             alt={item.product.name}
@@ -42,6 +53,14 @@ export function CartItem({ item, cart, setCart }: CartItemProps) {
               R$ {item.product.price.toFixed(2)}
             </p>
           </div>
+          <Button
+            onClick={handleRemoveFromCart}
+            variant="ghost"
+            size="icon"
+            className="text-red-500 hover:text-red-600 absolute right-2 top-2"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
         </div>
 
         <div className="flex items-center space-x-2 pt-4">

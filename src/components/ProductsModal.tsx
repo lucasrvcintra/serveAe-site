@@ -73,7 +73,7 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
           Adicionar Produto
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-xs sm:max-w-lg md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>
             {editingProduct ? 'Editar Produto' : 'Novo Produto'}
@@ -144,19 +144,19 @@ const ProductsDialog: React.FC<ProductsDialogProps> = ({
               }
             />
           </div>
+        </div>
+        <DialogFooter className="flex items-center justify-between flex-row p-2">
           <Button
             onClick={handleSubmit}
-            className="w-full bg-green-500 hover:bg-green-600 font-bold"
+            className="w-fit bg-green-500 hover:bg-green-600 font-bold"
           >
             {editingProduct ? 'Salvar Alterações' : 'Adicionar Produto'}
           </Button>
-        </div>
-        <DialogFooter>
           <Button
             onClick={() => setIsOpen(false)}
-            className="bg-red-500 hover:bg-red-700 font-bold"
+            className="w-fit bg-red-500 hover:bg-red-700 font-bold"
           >
-            Fechar
+            Cancelar
           </Button>
         </DialogFooter>
       </DialogContent>

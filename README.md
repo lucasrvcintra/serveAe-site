@@ -1,3 +1,4 @@
+# serveAe-site
 # Desafio Técnico - Falaê
 
 Este é o repositório do **Desafio Técnico** para o processo seletivo de estágio na **Falaê**. A aplicação foi desenvolvida para **gestão de pedidos de um restaurante**. Ela permite cadastrar clientes, produtos, criar pedidos, visualizar e atualizar informações, e calcular o total de cada pedido, tudo utilizando **React**, **Vite**, **TailwindCSS** e **Shadcn**.

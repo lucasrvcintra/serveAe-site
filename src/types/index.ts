@@ -1,5 +1,5 @@
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   category: string;
   price: number;
@@ -7,8 +7,7 @@ export type Product = {
   imageUrl: string;
 };
 
-export type CartItem = Product & {
+export type OrderItem = {
+  product: Product;
   quantity: number;
 };
-
-export const categories = ['Entrada', 'Prato Principal', 'Bebida', 'Sobremesa'];

@@ -1,13 +1,13 @@
-import { ShoppingCart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ModeToggle } from './mode-toggle';
+import Cart from './Cart';
+import { OrderItem } from '@/types';
 
-type HeaderProps = {
-  cartItemsCount: number;
-  onCartClick: () => void;
-};
+interface HeaderProps {
+  cart: OrderItem[];
+  setCart: (cartItems: OrderItem[]) => void;
+}
 
-const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
+const Header = ({ cart, setCart }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-[#FF9000]">
       <div className="flex h-16 items-center justify-between md:justify-between px-4">
@@ -28,19 +28,7 @@ const Header = ({ cartItemsCount, onCartClick }: HeaderProps) => {
             </span>
           </div>
 
-          <Button
-            variant="link"
-            size="icon"
-            onClick={onCartClick}
-            className="relative hover:bg-[#ff8000]"
-          >
-            <ShoppingCart className="h-5 w-5 text-white" />
-            {cartItemsCount > 0 && (
-              <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-primary text-[#0088A1] font-bold text-xs flex items-center justify-center bg-white">
-                {cartItemsCount}
-              </span>
-            )}
-          </Button>
+          <Cart cart={cart} setCart={setCart} />
           <ModeToggle />
         </div>
       </div>

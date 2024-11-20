@@ -11,3 +11,11 @@ export type OrderItem = {
   product: Product;
   quantity: number;
 };
+
+export type User = {
+  id: string;
+  email: string;
+  name: string;
+  address: string;
+  phone: string;
+};

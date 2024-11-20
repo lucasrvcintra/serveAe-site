@@ -5,7 +5,6 @@ import {
   DialogFooter,
   DialogContent,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -105,7 +104,6 @@ const EditProductDialog: React.FC<EditProductsDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="max-w-xs sm:max-w-lg md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>Editar Produto</DialogTitle>

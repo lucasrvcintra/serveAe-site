@@ -4,6 +4,7 @@ import EditProductDialog from './Modal/EditProduct';
 import { useEffect, useState } from 'react';
 import { api } from '@/server/api';
 import { Product } from '@/types';
+import ViewProductDialog from './Modal/ViewProduct';
 
 type ProductCardProps = {
   product: {
@@ -24,6 +25,7 @@ export default function ProductCard({
   handleAddToCart,
 }: ProductCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenView, setIsOpenView] = useState(false);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
@@ -57,19 +59,24 @@ export default function ProductCard({
     <>
       <div className="mb-4 border rounded-lg border-gray-500 p-4">
         <div className="flex md:items-center justify-between gap-1 flex-wrap">
-          <div className="flex-shrink-0 mr-2">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="w-16 h-16 rounded-md"
-            />
+          <div
+            className="hover:bg-gray-100 hover:rounded-lg hover:border-gray-500 hover:cursor-pointer p-4 flex flex-1 flex-row flex-wrap"
+            onClick={() => setIsOpenView(true)}
+          >
+            <div className="flex-shrink-0 mr-2">
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="w-16 h-16 rounded-md"
+              />
+            </div>
+            <div className="flex-1 mx-2 min-w-[90px]">
+              <p className="font-bold">{product.name}</p>
+              <p>{category}</p>
+              <p className="font-bold">R$ {product.price.toFixed(2)}</p>
+            </div>
           </div>
-          <div className="flex-1 mx-2 min-w-[90px]">
-            <p className="font-bold">{product.name}</p>
-            <p>{category}</p>
-            <p className="font-bold">R$ {product.price.toFixed(2)}</p>
-          </div>
-          <div className="flex items-center flex-row">
+          <div className="flex items-center flex-row ">
             <Button
               onClick={() => {
                 setIsOpen(true);
@@ -89,7 +96,7 @@ export default function ProductCard({
               <Trash2 className="h-4 w-4" />
             </Button>
           </div>
-          <div className="flex flex-1 md:flex-grow-0 items-center">
+          <div className="flex flex-1 md:flex-grow-0 items-center ">
             <Button
               onClick={() => handleAddToCart(product)}
               className="mx-1 my-1 flex-1 bg-[#FF9000] hover:bg-green-600 font-bold"
@@ -99,6 +106,11 @@ export default function ProductCard({
           </div>
         </div>
       </div>
+      <ViewProductDialog
+        isOpenView={isOpenView}
+        setIsOpenView={setIsOpenView}
+        product={product}
+      />
       <EditProductDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}

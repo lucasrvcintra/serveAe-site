@@ -70,7 +70,7 @@ const ConfirmClientDialog = ({
     <Dialog open={open} onOpenChange={setIsOpen}>
       <DialogContent className="max-w-xs sm:max-w-lg md:max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Finalizar Pedido</DialogTitle>
+          <DialogTitle>Confirmar Cliente</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form id="form" onSubmit={form.handleSubmit(handleSubmit)} noValidate>
@@ -94,7 +94,7 @@ const ConfirmClientDialog = ({
           </form>
         </Form>
 
-        <DialogFooter className="flex items-center justify-end p-2">
+        <DialogFooter className="flex flex-col items-center justify-end gap-2 w-full p-2">
           <Button
             form="form"
             type="submit"

@@ -151,7 +151,7 @@ const RegisterCLientDialog = ({
           </form>
         </Form>
 
-        <DialogFooter className="flex items-center justify-end p-2">
+        <DialogFooter className="flex flex-col items-center justify-end gap-2 w-full p-2 border-t">
           <Button
             form="form"
             type="submit"

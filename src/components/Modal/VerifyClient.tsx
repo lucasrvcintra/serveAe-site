@@ -23,11 +23,11 @@ const VerifyClientDialog = ({
 }: VerifyClientDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setIsOpen}>
-      <DialogContent>
+      <DialogContent className="w-[80%]">
         <DialogHeader>
           <DialogTitle>Já tem conta?</DialogTitle>
         </DialogHeader>
-        <DialogFooter className="flex items-center justify-end p-2">
+        <DialogFooter className="flex flex-col items-center justify-end gap-2 w-full p-2">
           <DialogClose asChild>
             <Button
               onClick={() => {

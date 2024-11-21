@@ -90,7 +90,7 @@ const FinishOrder = ({
             </ScrollArea>
           </div>
         </div>
-        <DialogFooter className="flex items-center justify-between p-2 border-t">
+        <DialogFooter className="flex flex-col items-center justify-between gap-2 w-full p-2 border-t">
           <div className="flex flex-1 justify-between items-center">
             <span className="font-semibold">Total: R$ {total.toFixed(2)}</span>
           </div>

@@ -1,5 +1,5 @@
 import Header from './components/Header';
-import { Product, OrderItem } from '@/types';
+import { Product, CartItem } from '@/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Card,
@@ -17,7 +17,7 @@ import AddProductDialog from '@/components/Modal/AddProduct';
 
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<OrderItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {

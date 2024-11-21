@@ -25,6 +25,7 @@ interface ConfirmClientDialogProps {
   open: boolean;
   setIsOpen: (open: boolean) => void;
   setUser: (user: User) => void;
+  setIsOpenFinishOrder: (open: boolean) => void;
 }
 
 const formSchema = z.object({
@@ -37,6 +38,7 @@ const ConfirmClientDialog = ({
   open,
   setIsOpen,
   setUser,
+  setIsOpenFinishOrder,
 }: ConfirmClientDialogProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,12 +52,16 @@ const ConfirmClientDialog = ({
     api
       .get(`/api/user/${email}`)
       .then((response: any) => {
-        console.log(response.data);
         setUser(response.data);
       })
       .catch((error) => {
         console.error('Failed to fetch user:', error);
       });
+    if (data) {
+      setIsOpenFinishOrder(true);
+    } else {
+      console.log('Cliente não cadastrado');
+    }
     setIsOpen(false);
     form.reset();
   }

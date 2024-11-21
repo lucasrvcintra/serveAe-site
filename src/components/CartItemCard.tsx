@@ -1,15 +1,15 @@
-import { OrderItem } from '../types';
+import { CartItem } from '../types';
 import { Button } from '@/components/ui/button';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-type CartItemProps = {
-  item: OrderItem;
-  cart: OrderItem[];
-  setCart: (cartItems: OrderItem[]) => void;
+type CartItemCardProps = {
+  item: CartItem;
+  cart: CartItem[];
+  setCart: (cartItems: CartItem[]) => void;
 };
 
-export function CartItem({ item, cart, setCart }: CartItemProps) {
+export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
   const [quantity, setQuantity] = useState(item.quantity);
 
   const handleUpdateQuantity = (quantity: number) => {

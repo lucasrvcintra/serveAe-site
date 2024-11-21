@@ -1,10 +1,10 @@
 import { ModeToggle } from './mode-toggle';
 import Cart from './Cart';
-import { OrderItem } from '@/types';
+import { CartItem } from '@/types';
 
 interface HeaderProps {
-  cart: OrderItem[];
-  setCart: (cartItems: OrderItem[]) => void;
+  cart: CartItem[];
+  setCart: (cartItems: CartItem[]) => void;
 }
 
 const Header = ({ cart, setCart }: HeaderProps) => {

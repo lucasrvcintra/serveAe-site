@@ -7,8 +7,18 @@ export type Product = {
   imageUrl: string;
 };
 
-export type OrderItem = {
+export type CartItem = {
   product: Product;
+  quantity: number;
+};
+
+export type Order = {
+  userId: string;
+  products: OrderItem[];
+};
+
+export type OrderItem = {
+  productId: string;
   quantity: number;
 };
 

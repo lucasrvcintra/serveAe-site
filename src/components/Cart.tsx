@@ -9,8 +9,8 @@ import {
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Trash2 } from 'lucide-react';
-import { OrderItem, type User } from '@/types';
-import { CartItem } from './CartItem';
+import { CartItem, User } from '@/types';
+import { CartItemCard } from './CartItemCard';
 import {
   Tooltip,
   TooltipContent,
@@ -23,10 +23,11 @@ import ConfirmClientDialog from './Modal/ConfirmClient';
 
 import RegisterCLientDialog from './Modal/RegisterClient';
 import VerifyClientDialog from './Modal/VerifyClient';
+import FinishOrder from './Modal/FinishOrder';
 
 interface CartProps {
-  cart: OrderItem[];
-  setCart: (cartItems: OrderItem[]) => void;
+  cart: CartItem[];
+  setCart: (cartItems: CartItem[]) => void;
 }
 
 const Cart = ({ cart, setCart }: CartProps) => {
@@ -36,7 +37,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
   const [isOpenConfirmClient, setIsOpenConfirmClient] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenFinishOrder, setIsOpenFinishOrder] = useState(false);
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   useEffect(() => {
     const totalPrice = cart.reduce((acc, item) => {
@@ -55,8 +56,6 @@ const Cart = ({ cart, setCart }: CartProps) => {
   const onClearCart = () => {
     setCart([]);
   };
-
-  console.log(user.id);
 
   return (
     <>
@@ -88,7 +87,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
             <ScrollArea className="h-[78%] w-full">
               <div className="space-y-4">
                 {cart.map((cartItem) => (
-                  <CartItem
+                  <CartItemCard
                     key={cartItem.product.id}
                     item={cartItem}
                     cart={cart}
@@ -154,6 +153,15 @@ const Cart = ({ cart, setCart }: CartProps) => {
         open={isOpenConfirmClient}
         setIsOpen={setIsOpenConfirmClient}
         setUser={setUser}
+        setIsOpenFinishOrder={setIsOpenFinishOrder}
+      />
+      <FinishOrder
+        open={isOpenFinishOrder}
+        setIsOpen={setIsOpenFinishOrder}
+        user={user}
+        setUser={setUser}
+        cart={cart}
+        total={total}
       />
     </>
   );

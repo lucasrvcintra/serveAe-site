@@ -2,6 +2,12 @@ import { CartItem } from '../types';
 import { Button } from '@/components/ui/button';
 import { Minus, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 type CartItemCardProps = {
   item: CartItem;
@@ -53,14 +59,24 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
               R$ {item.product.price.toFixed(2)}
             </p>
           </div>
-          <Button
-            onClick={handleRemoveFromCart}
-            variant="ghost"
-            size="icon"
-            className="text-red-500 hover:text-red-600 absolute right-2 top-2"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleRemoveFromCart}
+                  variant="ghost"
+                  size="icon"
+                  className="text-red-500 hover:text-red-600 absolute right-2 top-2"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <div>Remover Produto</div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
 
         <div className="flex items-center space-x-2 pt-4">
@@ -80,18 +96,28 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
             <Minus className="h-4 w-4" />
           </Button>
           <span className="w-8 text-center">{quantity}</span>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => {
-              const newQuantity = quantity + 1;
-              setQuantity(newQuantity);
-              handleUpdateQuantity(newQuantity);
-            }}
-            className="h-8 w-8"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => {
+                    const newQuantity = quantity + 1;
+                    setQuantity(newQuantity);
+                    handleUpdateQuantity(newQuantity);
+                  }}
+                  className="h-8 w-8"
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <div>Adicionar produto</div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
 
         <div className="ml-4 text-right min-w-[100px] pt-4">

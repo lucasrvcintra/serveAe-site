@@ -14,6 +14,7 @@ import { api } from '@/server/api';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import AddProductDialog from '@/components/Modal/AddProduct';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -48,45 +49,60 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header cart={cart} setCart={setCart} />
-      <div className="container mx-auto p-4 flex-1">
-        <Card>
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <div>
-                <CardTitle>Menu do Restaurante</CardTitle>
-                <CardDescription>Escolha seus pratos favoritos</CardDescription>
+      <div className="container mx-auto p-2 flex-1">
+        <Tabs defaultValue="account" className="w-full">
+          <TabsList className="flex justify-around w-full">
+            <TabsTrigger value="account" className="flex-1">
+              Menu
+            </TabsTrigger>
+            <TabsTrigger value="password" className="flex-1">
+              Pedidos
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle>Menu do Restaurante</CardTitle>
+                    <CardDescription>
+                      Escolha seus pratos favoritos
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
+                  <div className="flex flex-col gap-2">
+                    {products.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        setProducts={setProducts}
+                        handleAddToCart={handleAddToCart}
+                      />
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+              <div className="flex justify-start items-center p-4 border-t">
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-[#FF9000] hover:bg-green-600 font-bold"
+                >
+                  <Plus className="h-4 w-4 mx-2" />
+                  Cadastrar Produto
+                </Button>
+                <AddProductDialog
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  setProducts={setProducts}
+                />
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="md:h-[550px] h-[70vh] w-full px-2">
-              <div className="flex flex-col gap-2">
-                {products.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    setProducts={setProducts}
-                    handleAddToCart={handleAddToCart}
-                  />
-                ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-          <div className="flex justify-start items-center p-4 border-t">
-            <Button
-              onClick={() => setIsOpen(true)}
-              className="bg-[#FF9000] hover:bg-green-600 font-bold"
-            >
-              <Plus className="h-4 w-4 mx-2" />
-              Adicionar Produto
-            </Button>
-            <AddProductDialog
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              setProducts={setProducts}
-            />
-          </div>
-        </Card>
+            </Card>
+          </TabsContent>
+          <TabsContent value="password">Nenhum pedido</TabsContent>
+        </Tabs>
       </div>
     </div>
   );

@@ -1,10 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { Edit, Plus, Trash2 } from 'lucide-react';
+import { Edit, ShoppingCart, Trash2 } from 'lucide-react';
 import EditProductDialog from './Modal/EditProduct';
 import { useEffect, useState } from 'react';
 import { api } from '@/server/api';
 import { Product } from '@/types';
 import ViewProductDialog from './Modal/ViewProduct';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './ui/tooltip';
 
 type ProductCardProps = {
   product: {
@@ -77,31 +83,50 @@ export default function ProductCard({
             </div>
           </div>
           <div className="flex items-center flex-row ">
-            <Button
-              onClick={() => {
-                setIsOpen(true);
-              }}
-              variant="ghost"
-              size="icon"
-              className="text-[#0088A1] hover:text-[#009EBA]"
-            >
-              <Edit className="h-4 w-4" />
-            </Button>
-            <Button
-              onClick={handleDelete}
-              variant="ghost"
-              size="icon"
-              className="text-red-500 hover:text-red-600"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={() => {
+                      setIsOpen(true);
+                    }}
+                    variant="ghost"
+                    size="icon"
+                    className="text-[#0088A1] hover:text-[#009EBA]"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div>Editar produto</div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={handleDelete}
+                    variant="ghost"
+                    size="icon"
+                    className="text-red-500 hover:text-red-600"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-red-600">
+                  <div>Excluir produto</div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <div className="flex flex-1 md:flex-grow-0 items-center ">
             <Button
               onClick={() => handleAddToCart(product)}
               className="mx-1 my-1 flex-1 bg-[#FF9000] hover:bg-green-600 font-bold"
             >
-              <Plus className="mr-2 h-4 w-4" /> Adicionar
+              <ShoppingCart className="mr-2 h-4 w-4" /> Adicionar
             </Button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -18,18 +19,10 @@ import {
 } from '@/components/ui/tooltip';
 import { useEffect, useState } from 'react';
 import { ScrollArea } from './ui/scroll-area';
-import VerifyUserDialog from './Modal/VerifyUser';
-import FinishOrder from './Modal/FinishOrder';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './ui/dialog';
+import ConfirmClientDialog from './Modal/ConfirmClient';
+
+import RegisterCLientDialog from './Modal/RegisterClient';
+import VerifyClientDialog from './Modal/VerifyClient';
 
 interface CartProps {
   cart: OrderItem[];
@@ -39,7 +32,10 @@ interface CartProps {
 const Cart = ({ cart, setCart }: CartProps) => {
   const [total, setTotal] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenVerifyClient, setIsOpenVerifyClient] = useState(false);
+  const [isOpenConfirmClient, setIsOpenConfirmClient] = useState(false);
+  const [isOpenRegister, setIsOpenRegister] = useState(false);
+  const [isOpenFinishOrder, setIsOpenFinishOrder] = useState(false);
   const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
@@ -59,6 +55,8 @@ const Cart = ({ cart, setCart }: CartProps) => {
   const onClearCart = () => {
     setCart([]);
   };
+
+  console.log(user.id);
 
   return (
     <>
@@ -125,45 +123,38 @@ const Cart = ({ cart, setCart }: CartProps) => {
                   </Tooltip>
                 </TooltipProvider>
 
-                <Dialog>
-                  <DialogTrigger>
-                    <Button className="w-fit bg-[#0088A1] hover:bg-[#009EBA] font-bold">
-                      Finalizar Pedido
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Já tem conta?</DialogTitle>
-                    </DialogHeader>
-                    <DialogFooter className="flex items-center justify-end p-2">
-                      <DialogClose asChild>
-                        <Button
-                          onClick={() => {
-                            setIsOpen(true);
-                          }}
-                          className="w-fit bg-green-500 hover:bg-green-600 font-bold"
-                        >
-                          Sim
-                        </Button>
-                      </DialogClose>
-                      <DialogClose asChild>
-                        <Button className="w-fit bg-red-500 hover:bg-red-700 font-bold">
-                          Não
-                        </Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                <SheetClose asChild>
+                  <Button
+                    className="w-fit bg-[#0088A1] hover:bg-[#009EBA] font-bold"
+                    onClick={() => {
+                      setIsOpenVerifyClient(true);
+                    }}
+                  >
+                    Finalizar Pedido
+                  </Button>
+                </SheetClose>
               </div>
-              <VerifyUserDialog
-                open={isOpen}
-                setIsOpen={setIsOpen}
-                setUser={setUser}
-              />
             </div>
           )}
         </SheetContent>
       </Sheet>
+      <VerifyClientDialog
+        open={isOpenVerifyClient}
+        setIsOpen={setIsOpenVerifyClient}
+        setIsOpenRegister={setIsOpenRegister}
+        setIsOpenConfirmClient={setIsOpenConfirmClient}
+      />
+      <RegisterCLientDialog
+        open={isOpenRegister}
+        setIsOpen={setIsOpenRegister}
+        setUser={setUser}
+        setIsOpenFinishOrder={setIsOpenFinishOrder}
+      />
+      <ConfirmClientDialog
+        open={isOpenConfirmClient}
+        setIsOpen={setIsOpenConfirmClient}
+        setUser={setUser}
+      />
     </>
   );
 };

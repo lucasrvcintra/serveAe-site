@@ -21,7 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '@/server/api';
 import type { User } from '@/types';
 
-interface VerifyUserDialogProps {
+interface ConfirmClientDialogProps {
   open: boolean;
   setIsOpen: (open: boolean) => void;
   setUser: (user: User) => void;
@@ -33,11 +33,11 @@ const formSchema = z.object({
   }),
 });
 
-const VerifyUserDialog: React.FC<VerifyUserDialogProps> = ({
+const ConfirmClientDialog = ({
   open,
   setIsOpen,
   setUser,
-}) => {
+}: ConfirmClientDialogProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -110,4 +110,4 @@ const VerifyUserDialog: React.FC<VerifyUserDialogProps> = ({
   );
 };
 
-export default VerifyUserDialog;
+export default ConfirmClientDialog;

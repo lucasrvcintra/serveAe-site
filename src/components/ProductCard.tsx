@@ -60,7 +60,7 @@ export default function ProductCard({
       <div className="mb-4 border rounded-lg border-gray-500 p-4">
         <div className="flex md:items-center justify-between gap-1 flex-wrap">
           <div
-            className="hover:bg-gray-100 hover:rounded-lg hover:border-gray-500 hover:cursor-pointer p-4 flex flex-1 flex-row flex-wrap"
+            className="hover:backdrop-brightness-[.8] hover:rounded-lg hover:cursor-pointer p-4 flex flex-1 flex-row flex-wrap"
             onClick={() => setIsOpenView(true)}
           >
             <div className="flex-shrink-0 mr-2">

@@ -8,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from './ui/tooltip';
+import ConfirmActionDialog from './Modal/ConfirmAction';
 
 type CartItemCardProps = {
   item: CartItem;
@@ -17,6 +18,7 @@ type CartItemCardProps = {
 
 export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
   const [quantity, setQuantity] = useState(item.quantity);
+  const [isOpenConfirmAction, setIsOpenConfirmAction] = useState(false);
 
   const handleUpdateQuantity = (quantity: number) => {
     const existingItem = cart.find(
@@ -42,6 +44,7 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
         cart.filter((orderItem) => orderItem.product.id !== item.product.id)
       );
     }
+    setIsOpenConfirmAction(false);
   };
 
   return (
@@ -64,7 +67,7 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={handleRemoveFromCart}
+                  onClick={() => setIsOpenConfirmAction(true)}
                   variant="ghost"
                   size="icon"
                   className="text-red-500 hover:text-red-600 absolute right-2 top-2"
@@ -78,6 +81,12 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
             </Tooltip>
           </TooltipProvider>
         </div>
+        <ConfirmActionDialog
+          open={isOpenConfirmAction}
+          setIsOpen={setIsOpenConfirmAction}
+          text="Realmente deseja remover este produto do carrinho?"
+          handleDelete={handleRemoveFromCart}
+        />
 
         <div className="flex items-center space-x-2 pt-4">
           <Button

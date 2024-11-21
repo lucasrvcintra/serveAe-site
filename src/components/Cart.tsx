@@ -24,6 +24,7 @@ import ConfirmClientDialog from './Modal/ConfirmClient';
 import RegisterCLientDialog from './Modal/RegisterClient';
 import VerifyClientDialog from './Modal/VerifyClient';
 import FinishOrder from './Modal/FinishOrder';
+import ConfirmActionDialog from './Modal/ConfirmAction';
 
 interface CartProps {
   cart: CartItem[];
@@ -35,6 +36,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
   const [totalItems, setTotalItems] = useState(0);
   const [isOpenVerifyClient, setIsOpenVerifyClient] = useState(false);
   const [isOpenConfirmClient, setIsOpenConfirmClient] = useState(false);
+  const [isOpenConfirmAction, setIsOpenConfirmAction] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenFinishOrder, setIsOpenFinishOrder] = useState(false);
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -110,7 +112,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={onClearCart}
+                        onClick={() => setIsOpenConfirmAction(true)}
                         className="h-8 w-8 hover:bg-red-400"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -137,6 +139,12 @@ const Cart = ({ cart, setCart }: CartProps) => {
           )}
         </SheetContent>
       </Sheet>
+      <ConfirmActionDialog
+        open={isOpenConfirmAction}
+        setIsOpen={setIsOpenConfirmAction}
+        text="Tem certeza que deseja limpar o carrinho?"
+        handleDelete={onClearCart}
+      />
       <VerifyClientDialog
         open={isOpenVerifyClient}
         setIsOpen={setIsOpenVerifyClient}

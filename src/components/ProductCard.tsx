@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from './ui/tooltip';
+import ConfirmActionDialog from './Modal/ConfirmAction';
 
 type ProductCardProps = {
   product: {
@@ -31,6 +32,7 @@ export default function ProductCard({
   handleAddToCart,
 }: ProductCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenConfirmAction, setIsOpenConfirmAction] = useState(false);
   const [isOpenView, setIsOpenView] = useState(false);
   const [category, setCategory] = useState('');
 
@@ -47,19 +49,20 @@ export default function ProductCard({
   }, [product]);
 
   function handleDelete() {
-    api.delete(`/api/products/${product.id}`).then(() => {
-      try {
-        api.get('/api/products').then((response: any) => {
-          try {
+    try {
+      api.delete(`/api/products/${product.id}`).then(() => {
+        try {
+          api.get('/api/products').then((response: any) => {
             setProducts(response.data.products);
-          } catch (error) {
-            console.error('Failed to fetch products:', error);
-          }
-        });
-      } catch (error) {
-        console.error('Failed to delete product:', error);
-      }
-    });
+          });
+        } catch (error) {
+          console.error('Failed to fetch products:', error);
+        }
+      });
+    } catch (error) {
+      console.error('Failed to delete product:', error);
+    }
+    setIsOpenConfirmAction(false);
   }
   return (
     <>
@@ -107,7 +110,7 @@ export default function ProductCard({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={handleDelete}
+                    onClick={() => setIsOpenConfirmAction(true)}
                     variant="ghost"
                     size="icon"
                     className="text-red-500 hover:text-red-600"
@@ -141,6 +144,12 @@ export default function ProductCard({
         setIsOpen={setIsOpen}
         product={product}
         setProducts={setProducts}
+      />
+      <ConfirmActionDialog
+        open={isOpenConfirmAction}
+        setIsOpen={setIsOpenConfirmAction}
+        text="Realmente deseja excluir produto?"
+        handleDelete={handleDelete}
       />
     </>
   );

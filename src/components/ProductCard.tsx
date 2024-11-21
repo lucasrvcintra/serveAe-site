@@ -66,7 +66,7 @@ export default function ProductCard({
   }
   return (
     <>
-      <div className="mb-4 border rounded-lg border-gray-500 p-4">
+      <div className="border rounded-lg border-gray-400 p-1 w-full ">
         <div className="flex md:items-center justify-between gap-1 flex-wrap">
           <div
             className="hover:backdrop-brightness-[.8] hover:rounded-lg hover:cursor-pointer p-4 flex flex-1 flex-row flex-wrap"

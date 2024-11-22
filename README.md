@@ -23,7 +23,7 @@ Este é o repositório do frontend do **Desafio Técnico** para o processo selet
 1. **Clonar o Repositório**
    ```bash
    git clone https://github.com/lucasrvcintra/serveAe-site.git
-   cd nome-do-repositorio
+   cd serveAe-site
 2. **Instalar dependências
    ```bash
    npm install

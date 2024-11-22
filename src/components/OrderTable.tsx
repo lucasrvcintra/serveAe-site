@@ -52,46 +52,54 @@ const OrderTable = () => {
 
   return (
     <>
-      <Table className="w-full">
-        <TableHeader>
-          <TableRow>
-            <TableHead>Preço Total</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Data de Criação</TableHead>
-            <TableHead>Itens</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell>R$ {order.totalPrice?.toFixed(2) || '0.00'}</TableCell>
-              <TableCell>{order.status || 'Desconhecido'}</TableCell>
-              <TableCell>
-                {new Date(order.createdAt).toLocaleString()}
-              </TableCell>
-              <TableCell>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => handleViewOrderDetails(order.id)}
-                        className="h-8 w-8 hover:bg-[#FF9000]"
-                      >
-                        <ShoppingBag size={4} />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <div>Ver Itens</div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </TableCell>
+      {orders.length > 0 ? (
+        <Table className="w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Preço Total</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Data de Criação</TableHead>
+              <TableHead>Itens</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell>
+                  R$ {order.totalPrice?.toFixed(2) || '0.00'}
+                </TableCell>
+                <TableCell>{order.status || 'Desconhecido'}</TableCell>
+                <TableCell>
+                  {new Date(order.createdAt).toLocaleString()}
+                </TableCell>
+                <TableCell>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => handleViewOrderDetails(order.id)}
+                          className="h-8 w-8 hover:bg-[#FF9000]"
+                        >
+                          <ShoppingBag size={4} />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <div>Ver Itens</div>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <div className="flex justify-center items-center h-full">
+          <p>Ainda não existem pedidos registrados</p>
+        </div>
+      )}
       <ViewOrderItemDialog
         isOpenView={isViewProductOpen}
         setIsOpenView={setIsViewProductOpen}

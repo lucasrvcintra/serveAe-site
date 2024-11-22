@@ -74,22 +74,30 @@ export default function App() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {products.map((product) => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        setProducts={setProducts}
-                        cart={cart}
-                        setCart={setCart}
-                        handleAddToCart={handleAddToCart}
-                      />
-                    ))}
+              {products.length > 0 ? (
+                <CardContent>
+                  <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {products.map((product) => (
+                        <ProductCard
+                          key={product.id}
+                          product={product}
+                          setProducts={setProducts}
+                          cart={cart}
+                          setCart={setCart}
+                          handleAddToCart={handleAddToCart}
+                        />
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              ) : (
+                <CardContent>
+                  <div className="flex justify-center items-center h-full">
+                    <p>Cadastre um produto</p>
                   </div>
-                </ScrollArea>
-              </CardContent>
+                </CardContent>
+              )}
               <div className="flex justify-start items-center p-4 border-t">
                 <Button
                   onClick={() => setIsOpen(true)}

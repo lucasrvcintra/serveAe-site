@@ -4,7 +4,7 @@ import { Edit, ShoppingCart, Trash2 } from 'lucide-react';
 import EditProductDialog from './Modal/EditProduct';
 import { useEffect, useState } from 'react';
 import { api } from '@/server/api';
-import { Product } from '@/types';
+import { Product, type CartItem } from '@/types';
 import ViewProductDialog from './Modal/ViewProduct';
 import {
   Tooltip,
@@ -24,12 +24,16 @@ type ProductCardProps = {
     imageUrl: string;
   };
   setProducts: (products: Product[]) => void;
+  cart: CartItem[];
+  setCart: (cartItems: CartItem[]) => void;
   handleAddToCart: (product: Product) => void;
 };
 
 export default function ProductCard({
   product,
   setProducts,
+  cart,
+  setCart,
   handleAddToCart,
 }: ProductCardProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +59,11 @@ export default function ProductCard({
         try {
           api.get('/api/products').then((response: any) => {
             setProducts(response.data.products);
+
+            const newCart = cart.filter(
+              (item) => item.product.id !== product.id
+            );
+            setCart(newCart);
           });
         } catch (error) {
           console.error('Failed to fetch products:', error);
@@ -69,7 +78,7 @@ export default function ProductCard({
   }
   return (
     <>
-      <div className="border rounded-lg border-gray-400 p-1 w-full ">
+      <div className="border rounded-lg border-gray-200 shadow-md p-1 w-full ">
         <div className="flex md:items-center justify-between gap-1 flex-wrap">
           <div
             className="hover:backdrop-brightness-[.8] hover:rounded-lg hover:cursor-pointer p-4 flex flex-1 flex-row flex-wrap"

@@ -17,6 +17,20 @@ export type Order = {
   products: OrderItem[];
 };
 
+export type ProductOrder = {
+  name: string;
+  quantity: number;
+  price: number;
+};
+
+export type OrderTable = {
+  id: string;
+  status: string;
+  createdAt: string;
+  totalPrice: number;
+  products: ProductOrder[];
+};
+
 export type OrderItem = {
   productId: string;
   quantity: number;

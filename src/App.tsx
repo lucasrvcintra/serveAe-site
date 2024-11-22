@@ -53,7 +53,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col">
       <Header cart={cart} setCart={setCart} />
       <div className="container mx-auto p-2 flex-1">
-        <Tabs defaultValue="account" className="w-full">
+        <Tabs defaultValue="Products" className="w-full">
           <TabsList className="flex justify-around w-full">
             <TabsTrigger value="Products" className="flex-1">
               Menu
@@ -82,6 +82,8 @@ export default function App() {
                         key={product.id}
                         product={product}
                         setProducts={setProducts}
+                        cart={cart}
+                        setCart={setCart}
                         handleAddToCart={handleAddToCart}
                       />
                     ))}
@@ -118,7 +120,7 @@ export default function App() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div className="flex flex-col gap-2">
                     <OrderTable />
                   </div>
                 </ScrollArea>

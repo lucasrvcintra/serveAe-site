@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Edit, ShoppingCart, Trash2 } from 'lucide-react';
 import EditProductDialog from './Modal/EditProduct';
@@ -61,7 +62,9 @@ export default function ProductCard({
       });
     } catch (error) {
       console.error('Failed to delete product:', error);
+      toast.error('Falha ao excluir produto');
     }
+    toast.success('Produto excluído com sucesso');
     setIsOpenConfirmAction(false);
   }
   return (
@@ -110,7 +113,9 @@ export default function ProductCard({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={() => setIsOpenConfirmAction(true)}
+                    onClick={() => {
+                      setIsOpenConfirmAction(true);
+                    }}
                     variant="ghost"
                     size="icon"
                     className="text-red-500 hover:text-red-600"
@@ -126,7 +131,10 @@ export default function ProductCard({
           </div>
           <div className="flex flex-1 md:flex-grow-0 items-center ">
             <Button
-              onClick={() => handleAddToCart(product)}
+              onClick={() => {
+                handleAddToCart(product);
+                toast.success('Produto adicionado ao carrinho');
+              }}
               className="mx-1 my-1 flex-1 bg-[#FF9000] hover:bg-green-600 font-bold"
             >
               <ShoppingCart className="mr-2 h-4 w-4" /> Adicionar

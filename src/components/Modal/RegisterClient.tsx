@@ -20,6 +20,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { api } from '@/server/api';
 import type { User } from '@/types';
+import { toast } from 'sonner';
 
 interface RegisterClientDialogProps {
   open: boolean;
@@ -63,7 +64,9 @@ const RegisterCLientDialog = ({
     api.post('/api/auth/register', data).then((response: any) => {
       try {
         setUser(response.data.user);
+        toast.success('Usuário cadastrado com sucesso');
       } catch (err) {
+        toast.error('Erro ao cadastrar o usuário');
         console.log('Failed to create user', err);
       }
     });

@@ -28,6 +28,7 @@ import {
 } from '../ui/form';
 import { api } from '@/server/api';
 import type { Product } from '@/types';
+import { toast } from 'sonner';
 
 type AddProductsDialogProps = {
   isOpen: boolean;
@@ -76,13 +77,14 @@ const AddProductDialog: React.FC<AddProductsDialogProps> = ({
           try {
             setProducts(response.data.products);
           } catch (error) {
-            console.error('Failed to fetch products:', error);
+            toast.error('Erro ao carregar os produtos');
           }
         });
       } catch (error) {
-        console.error('Failed to add product:', error);
+        toast.error('Erro ao adicionar o produto');
       }
     });
+    toast.success('Produto cadastrado com sucesso');
     setIsOpen(false);
     form.reset();
   }

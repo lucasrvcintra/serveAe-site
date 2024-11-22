@@ -25,6 +25,7 @@ import RegisterCLientDialog from './Modal/RegisterClient';
 import VerifyClientDialog from './Modal/VerifyClient';
 import FinishOrder from './Modal/FinishOrder';
 import ConfirmActionDialog from './Modal/ConfirmAction';
+import { toast } from 'sonner';
 
 interface CartProps {
   cart: CartItem[];
@@ -39,7 +40,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
   const [isOpenConfirmAction, setIsOpenConfirmAction] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false);
   const [isOpenFinishOrder, setIsOpenFinishOrder] = useState(false);
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     const totalPrice = cart.reduce((acc, item) => {
@@ -56,6 +57,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
   }, [cart]);
 
   const onClearCart = () => {
+    toast.success('Carrinho limpo com sucesso');
     setCart([]);
   };
 
@@ -169,6 +171,7 @@ const Cart = ({ cart, setCart }: CartProps) => {
         user={user}
         setUser={setUser}
         cart={cart}
+        setCart={setCart}
         total={total}
       />
     </>

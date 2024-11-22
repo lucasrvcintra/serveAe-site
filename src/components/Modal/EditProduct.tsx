@@ -29,6 +29,7 @@ import {
 import { api } from '@/server/api';
 import { Product } from '@/types';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 type EditProductsDialogProps = {
   isOpen: boolean;
@@ -95,9 +96,10 @@ const EditProductDialog: React.FC<EditProductsDialogProps> = ({
           }
         });
       } catch (error) {
-        console.error('Failed to add product:', error);
+        toast.error('Erro ao editar o produto');
       }
     });
+    toast.success('Produto editado com sucesso');
     setIsOpen(false);
     form.reset();
   }

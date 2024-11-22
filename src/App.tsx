@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import AddProductDialog from '@/components/Modal/AddProduct';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
+import { toast } from 'sonner';
 
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,6 +28,7 @@ export default function App() {
         setProducts(response.data.products);
       } catch (error) {
         console.error('Failed to fetch products:', error);
+        toast.error('Erro ao carregar os produtos');
       }
     });
   }, [setProducts]);

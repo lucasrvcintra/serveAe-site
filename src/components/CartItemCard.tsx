@@ -9,6 +9,7 @@ import {
   TooltipTrigger,
 } from './ui/tooltip';
 import ConfirmActionDialog from './Modal/ConfirmAction';
+import { toast } from 'sonner';
 
 type CartItemCardProps = {
   item: CartItem;
@@ -44,6 +45,7 @@ export function CartItemCard({ item, cart, setCart }: CartItemCardProps) {
         cart.filter((orderItem) => orderItem.product.id !== item.product.id)
       );
     }
+    toast.success('Produto removido com sucesso');
     setIsOpenConfirmAction(false);
   };
 

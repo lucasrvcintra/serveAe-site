@@ -1,5 +1,4 @@
 import { Button } from '../ui/button';
-
 import type { CartItem, Order, User } from '@/types';
 import {
   Dialog,
@@ -9,8 +8,8 @@ import {
   DialogTitle,
 } from '../ui/dialog';
 import { ScrollArea } from '../ui/scroll-area';
-import { useEffect, useState } from 'react';
 import { api } from '@/server/api';
+import { toast } from 'sonner';
 
 interface FinishOrderProps {
   open: boolean;
@@ -18,6 +17,7 @@ interface FinishOrderProps {
   user: User | undefined;
   setUser: (user: User | undefined) => void;
   cart: CartItem[];
+  setCart: (cartItems: CartItem[]) => void;
   total: number;
 }
 
@@ -27,30 +27,33 @@ const FinishOrder = ({
   user,
   setUser,
   cart,
+  setCart,
   total,
 }: FinishOrderProps) => {
-  const [order, setOrder] = useState<Order | undefined>(undefined);
+  async function handleCreateOrder() {
+    if (!user) {
+      toast.error('Usuário não definido. Por favor, confirme seus dados.');
+      return;
+    }
 
-  useEffect(() => {
     const orderItems = cart.map((cartItem) => ({
       productId: cartItem.product.id,
       quantity: cartItem.quantity,
     }));
-    if (user) {
-      setOrder({
-        userId: user.id,
-        products: orderItems,
-      });
-    }
-  }, [open]);
 
-  function handleCreateOrder() {
+    const newOrder: Order = {
+      userId: user.id,
+      products: orderItems,
+    };
+
     try {
-      api.post('/api/orders', order).then(() => {
-        alert('pedido criado com sucesso');
-      });
+      await api.post('/api/orders', newOrder);
+      setCart([]);
+      setIsOpen(false);
+      toast.success('Pedido criado com sucesso');
     } catch (error) {
       console.error('Failed to create order:', error);
+      toast.error('Erro ao criar o pedido. Tente novamente.');
     }
   }
 

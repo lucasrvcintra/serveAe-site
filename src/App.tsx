@@ -1,82 +1,131 @@
-import { useState } from 'react';
 import Header from './components/Header';
-import { MenuSection } from './components/MenuSection';
-import { CartSection } from './components/CartSection';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useProducts } from './hooks/useProducts';
-import { useCart } from './hooks/useCart';
-import { Product } from './types';
+import { Product, CartItem } from '@/types';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import ProductCard from '@/components/ProductCard';
+import { useEffect, useState } from 'react';
+import { api } from '@/server/api';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import AddProductDialog from '@/components/Modal/AddProduct';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
+import { toast } from 'sonner';
+import OrderTable from './components/OrderTable';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('menu');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newProduct, setNewProduct] = useState<Partial<Product>>({});
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const { products, handleAddProduct, handleEditProduct, handleDeleteProduct } =
-    useProducts();
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    clearCart,
-    cartItemsCount,
-    totalPrice,
-  } = useCart();
+  useEffect(() => {
+    api.get('/api/products').then((response: any) => {
+      try {
+        setProducts(response.data.products);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+        toast.error('Erro ao carregar os produtos');
+      }
+    });
+  }, [setProducts]);
 
-  const modalProps = {
-    onAddProduct: (product: Partial<Product>) => {
-      handleAddProduct(product);
-      setNewProduct({});
-      setIsModalOpen(false);
-    },
-    onEditProduct: (product: Product) => {
-      handleEditProduct(product);
-      setEditingProduct(null);
-      setIsModalOpen(false);
-    },
-    newProduct,
-    setNewProduct,
-    isOpen: isModalOpen,
-    setIsOpen: setIsModalOpen,
-    editingProduct,
-    setEditingProduct,
+  const handleAddToCart = (product: Product) => {
+    const existingItem = cart.find((item) => item.product.id === product.id);
+    if (existingItem) {
+      setCart(
+        cart.map((item) =>
+          item.product.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      );
+    } else {
+      setCart([...cart, { product, quantity: 1 }]);
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header
-        cartItemsCount={cartItemsCount}
-        onCartClick={() => setActiveTab('cart')}
-      />
-      <div className="container mx-auto p-4 flex-1">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="menu">Menu</TabsTrigger>
-            <TabsTrigger value="cart">Carrinho</TabsTrigger>
+      <Header cart={cart} setCart={setCart} />
+      <div className="container mx-auto p-2 flex-1">
+        <Tabs defaultValue="Products" className="w-full">
+          <TabsList className="flex justify-around w-full">
+            <TabsTrigger value="Products" className="flex-1">
+              Menu
+            </TabsTrigger>
+            <TabsTrigger value="Orders" className="flex-1">
+              Pedidos
+            </TabsTrigger>
           </TabsList>
-
-          <TabsContent value="menu">
-            <MenuSection
-              modalProps={modalProps}
-              products={products}
-              onAddToCart={addToCart}
-              onEditProduct={(product: Product) => {
-                setEditingProduct(product);
-                setIsModalOpen(true);
-              }}
-              onDeleteProduct={handleDeleteProduct}
-            />
+          <TabsContent value="Products">
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle>Menu do Restaurante</CardTitle>
+                    <CardDescription>
+                      Escolha seus pratos favoritos
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {products.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        setProducts={setProducts}
+                        cart={cart}
+                        setCart={setCart}
+                        handleAddToCart={handleAddToCart}
+                      />
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+              <div className="flex justify-start items-center p-4 border-t">
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-[#FF9000] hover:bg-green-600 font-bold"
+                >
+                  <Plus className="h-4 w-4 mx-2" />
+                  Cadastrar Produto
+                </Button>
+                <AddProductDialog
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                  setProducts={setProducts}
+                />
+              </div>
+            </Card>
           </TabsContent>
-
-          <TabsContent value="cart">
-            <CartSection
-              cart={cart}
-              onDecrease={removeFromCart}
-              onIncrease={addToCart}
-              onClearCart={clearCart}
-              totalPrice={totalPrice}
-            />
+          <TabsContent value="Orders">
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <CardTitle>Histórico de Pedidos</CardTitle>
+                    <CardDescription>
+                      Veja os pedidos feitos até aqui
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="md:h-[550px] h-[60vh] w-full px-2">
+                  <div className="flex flex-col gap-2">
+                    <OrderTable />
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

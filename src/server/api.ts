@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: process.env.DATABASE_URL,
+  baseURL: 'http://localhost:3333',
   headers: {
     'Content-Type': 'application/json',
   },

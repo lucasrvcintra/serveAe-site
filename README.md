@@ -24,15 +24,20 @@ Este é o repositório do frontend do **Desafio Técnico** para o processo selet
    ```bash
    git clone https://github.com/lucasrvcintra/serveAe-site.git
    cd serveAe-site
-2. **Instalar dependências
+2. **Instalar dependências**
    ```bash
    npm install
-3. **Rodar o projeto
+3. **Rodar o projeto**
    ```bash
    npm run dev
-3. **Abrir no navegador
+3. **Abrir no navegador**
    ```bash
     ➜  Local:   http://localhost:5173/
+4. **Variáveis de ambiente**
+   
+    ➜  Seguir env.example
+   
+   
 ## 📝 Funcionalidades Implementadas
 
 ### 1. Cadastro de Clientes

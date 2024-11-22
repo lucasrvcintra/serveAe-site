@@ -1,7 +1,7 @@
 # serveAe-site
 # Desafio Técnico - Falaê
 
-Este é o repositório do **Desafio Técnico** para o processo seletivo de estágio na **Falaê**. A aplicação foi desenvolvida para **gestão de pedidos de um restaurante**. Ela permite cadastrar clientes, produtos, criar pedidos, visualizar e atualizar informações, e calcular o total de cada pedido, tudo utilizando **React**, **Vite**, **TailwindCSS** e **Shadcn**.
+Este é o repositório do frontend do **Desafio Técnico** para o processo seletivo de estágio na **Falaê**. A aplicação foi desenvolvida para **gestão de pedidos de um restaurante**. Ela permite cadastrar clientes, realizar CRUD completo de produtos, criar e listar pedidos, e calcular o total de cada pedido, tudo utilizando **React**, **Vite**, **TailwindCSS** e **Shadcn**.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -22,7 +22,7 @@ Este é o repositório do **Desafio Técnico** para o processo seletivo de está
 
 1. **Clonar o Repositório**
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   git clone https://github.com/lucasrvcintra/serveAe-site.git
    cd nome-do-repositorio
 2. **Instalar dependências
    ```bash
@@ -44,7 +44,7 @@ Este é o repositório do **Desafio Técnico** para o processo seletivo de está
 - **Funcionalidade**: Produtos podem ser criados e visualizados diretamente pela interface.
 
 ### 3. Visualização de Produtos
-- **Objetivo**: Exibe uma lista de produtos cadastrados, permitindo ao usuário visualizar informações detalhadas como nome, categoria, preço e descrição.
+- **Objetivo**: Exibe uma lista de produtos cadastrados, ao clicar no card o usuário visualiza informações detalhadas como nome, categoria, preço e descrição.
 
 ### 4. Criação de Pedidos
 - **Objetivo**: Permite que o cliente crie um pedido, selecionando produtos e suas respectivas quantidades.
@@ -56,7 +56,7 @@ Este é o repositório do **Desafio Técnico** para o processo seletivo de está
 
 ### 6. Edição e Exclusão de Produtos
 - **Objetivo**: Permite atualizar ou excluir produtos do banco de dados.
-- **Funcionalidade**: Produtos podem ser editados ou removidos pela interface administrativa.
+- **Funcionalidade**: Produtos podem ser editados ou removidos pela interface.
 
 ### 7. Cálculo de Total do Pedido
 - **Objetivo**: Calcular automaticamente o valor total de cada pedido com base nos preços e nas quantidades dos produtos.

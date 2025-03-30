@@ -1,22 +1,22 @@
-import Header from './components/Header';
-import { Product, CartItem } from '@/types';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import Header from "./components/Header";
+import { Product, CartItem } from "@/types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import ProductCard from '@/components/ProductCard';
-import { useEffect, useState } from 'react';
-import { api } from '@/server/api';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-import AddProductDialog from '@/components/Modal/AddProduct';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
-import { toast } from 'sonner';
-import OrderTable from './components/OrderTable';
+} from "@/components/ui/card";
+import ProductCard from "@/components/ProductCard";
+import { useEffect, useState } from "react";
+import { api } from "@/server/api";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import AddProductDialog from "@/components/Modal/AddProduct";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+import { toast } from "sonner";
+import OrderTable from "./components/OrderTable";
 
 export default function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,12 +24,12 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    api.get('/api/products').then((response: any) => {
+    api.get("/api/products").then((response: any) => {
       try {
         setProducts(response.data.products);
       } catch (error) {
-        console.error('Failed to fetch products:', error);
-        toast.error('Erro ao carregar os produtos');
+        console.error("Failed to fetch products:", error);
+        toast.error("Erro ao carregar os produtos");
       }
     });
   }, [setProducts]);
@@ -120,9 +120,7 @@ export default function App() {
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>Histórico de Pedidos</CardTitle>
-                    <CardDescription>
-                      Veja os pedidos feitos até aqui
-                    </CardDescription>
+                    <CardDescription>Veja os pedidos feitos</CardDescription>
                   </div>
                 </div>
               </CardHeader>

@@ -33,7 +33,6 @@ export default function App() {
       }
     });
   }, [setProducts]);
-
   const handleAddToCart = (product: Product) => {
     const existingItem = cart.find((item) => item.product.id === product.id);
     if (existingItem) {

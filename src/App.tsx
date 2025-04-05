@@ -33,7 +33,6 @@ export default function App() {
       }
     });
   }, [setProducts]);
-
   const handleAddToCart = (product: Product) => {
     const existingItem = cart.find((item) => item.product.id === product.id);
     if (existingItem) {
@@ -120,7 +119,9 @@ export default function App() {
                 <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>Histórico de Pedidos</CardTitle>
-                    <CardDescription>Veja os pedidos feitos</CardDescription>
+                    <CardDescription>
+                      Veja os pedidos feitos até aqui
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
